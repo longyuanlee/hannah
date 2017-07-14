@@ -22,7 +22,7 @@ INSERT OVERWRITE 只会覆盖掉其所在的分区。
 4、lateral view explode 和split结合用法（将数据分行）
 SELECT r.node_id, r.node_name , reference as ref FROM zhgame.goa_ad_ref r  lateral view explode(split(r.ref,',')) t as reference where dt=20170313
 
-5、hive不支持记录基本的更新、删除、插入
+5、hive不支持记录级别的更新、删除、插入
 
 6、为什么要用hive？hive有什么特点？
 hive最适合于数据仓库程序。（不需要实时响应查询，不需要记录级别的插入、更新、删除）
@@ -37,6 +37,17 @@ hive最适合于数据仓库程序。（不需要实时响应查询，不需要�
 8、hive
 有时候我们有些数据上传到数据库上格式不符合我们的要求，我们可以通过正则表达式来过滤这些数据，如一个int的数据，设计的时候用了string，这时候我们可以通过正则表达式来规避
     select giftid,giftname,giftdec,gameid,server,props,giftnum,mutexids,starttime,endtime,joinnum,exchangenum,rolescope,giftgroupid from cgame.gamegift_gift_package  where giftnum regexp "^([1-9][0-9]*)$" or giftnum = "";
+    
+9、hive现阶段只支持UNION ALL（即不消除重复记录）,不支持union。
+
+10、hive里面substring的index表示0和1都表示从第一位开始。
+
+11、编写hive
+如果表使用了别名，那么字段全部要用别名。
+连表查询先过滤条件再连表。
+查询分区数据的，如果有两个分区，建议第二个分区应该指明。
+
+
 
 
     
